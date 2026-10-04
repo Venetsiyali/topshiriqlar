@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const HOST_PREFIXES = ["/dashboard", "/groups", "/quizzes", "/session"];
+const HOST_PREFIXES = ["/dashboard", "/groups", "/quizzes", "/sessions", "/session"];
 
 function isHostRoute(pathname: string) {
   // Projektor ekrani sessiya havolasi orqali ochiladi, login talab qilinmaydi

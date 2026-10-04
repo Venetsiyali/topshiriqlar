@@ -8,7 +8,7 @@ Dars davomida talabalar real vaqtda musobaqalashadigan, o'qituvchi katta ekranda
 
 - [x] 1-bosqich — poydevor: loyiha skeleti, Supabase sxemasi + RLS, o'qituvchi autentifikatsiyasi
 - [x] 2-bosqich — guruh / quiz / topshiriq CRUD
-- [ ] 3-bosqich — sessiya, PIN, QR, lobby
+- [x] 3-bosqich — sessiya, PIN, QR, lobby
 - [ ] 4-bosqich — realtime
 - [ ] 5-bosqich — topshiriq turlari (crossword, choice, short, python, order)
 - [ ] 6-bosqich — katta ekran (poyga treki, podium)
@@ -17,7 +17,7 @@ Dars davomida talabalar real vaqtda musobaqalashadigan, o'qituvchi katta ekranda
 ## Ishga tushirish
 
 1. [supabase.com](https://supabase.com) da loyiha yarating.
-2. SQL Editor'da `supabase/migrations/0001_init.sql` faylini ishga tushiring.
+2. SQL Editor'da `supabase/migrations/` dagi fayllarni tartib bilan (`0001_…`, `0002_…`) ishga tushiring.
 3. `.env.example` dan `.env.local` yarating va kalitlarni kiriting (Supabase → Project Settings → API).
 4. ```bash
    npm install

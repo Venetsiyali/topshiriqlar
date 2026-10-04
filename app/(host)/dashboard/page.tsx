@@ -11,15 +11,17 @@ export default async function DashboardPage() {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [{ data: profile }, { count: groupCount }, { count: quizCount }] = await Promise.all([
+  const [{ data: profile }, { count: groupCount }, { count: quizCount }, { count: sessionCount }] = await Promise.all([
     supabase.from("profiles").select("full_name").eq("id", user.id).single(),
     supabase.from("groups").select("*", { count: "exact", head: true }),
     supabase.from("quizzes").select("*", { count: "exact", head: true }),
+    supabase.from("sessions").select("*", { count: "exact", head: true }).eq("host_id", user.id),
   ]);
 
   const sections = [
     { href: "/groups", title: uz.dashboard.groups, count: groupCount ?? 0 },
     { href: "/quizzes", title: uz.dashboard.quizzes, count: quizCount ?? 0 },
+    { href: "/sessions", title: uz.dashboard.sessions, count: sessionCount ?? 0 },
   ];
 
   return (
@@ -37,10 +39,6 @@ export default async function DashboardPage() {
             </Card>
           </Link>
         ))}
-        <Card className="opacity-60">
-          <h2 className="text-xl font-semibold">{uz.dashboard.sessions}</h2>
-          <p className="mt-2 text-sm text-muted">{uz.dashboard.comingSoon}</p>
-        </Card>
       </div>
     </div>
   );

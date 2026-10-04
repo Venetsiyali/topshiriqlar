@@ -6,6 +6,7 @@ const NAV = [
   { href: "/dashboard", label: uz.nav.dashboard },
   { href: "/groups", label: uz.nav.groups },
   { href: "/quizzes", label: uz.nav.quizzes },
+  { href: "/sessions", label: uz.nav.sessions },
 ];
 
 export default function HostLayout({ children }: { children: React.ReactNode }) {

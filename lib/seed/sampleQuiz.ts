@@ -1,0 +1,101 @@
+import type { TaskInput } from "@/lib/validators";
+
+/** Namunaviy to'plam: 10 ta topshiriq, barcha 5 tur (TZ 12, 2-bosqich). */
+export const sampleTasks: TaskInput[] = [
+  {
+    type: "crossword",
+    title: "Python'da ekranga chiqarish funksiyasi",
+    hint: "5 harf",
+    points: 100,
+    timeLimitSec: null,
+    payload: { answer: "print", caseSensitive: false, revealHint: 0, maxAttempts: null },
+  },
+  {
+    type: "choice",
+    title: "Python'da qaysi belgi izoh (comment) uchun ishlatiladi?",
+    hint: null,
+    points: 100,
+    timeLimitSec: null,
+    payload: { options: ["//", "#", "/* */", "--"], correctIndex: 1, shuffle: true },
+  },
+  {
+    type: "crossword",
+    title: "Foydalanuvchidan ma'lumot oluvchi funksiya",
+    hint: null,
+    points: 100,
+    timeLimitSec: null,
+    payload: { answer: "input", caseSensitive: false, revealHint: 1, maxAttempts: null },
+  },
+  {
+    type: "short",
+    title: "print() funksiyasi nima qiladi?",
+    hint: "Bir-ikki so'z bilan",
+    points: 100,
+    timeLimitSec: null,
+    payload: { accepted: ["ekranga chiqaradi", "chop etadi", "natijani ko'rsatadi"], matchMode: "fuzzy", threshold: 0.8 },
+  },
+  {
+    type: "choice",
+    title: "type(3.14) natijasi qanday?",
+    hint: null,
+    points: 100,
+    timeLimitSec: null,
+    payload: { options: ["int", "str", "float", "bool"], correctIndex: 2, shuffle: true },
+  },
+  {
+    type: "order",
+    title: "Dastur bosqichlarini to'g'ri tartibda joylang",
+    hint: null,
+    points: 100,
+    timeLimitSec: null,
+    payload: { sequence: ["Ma'lumot kiritish", "Hisoblash", "Natijani chiqarish"] },
+  },
+  {
+    type: "python",
+    title: "Ikki sonni qo'shib natijani chiqaring",
+    hint: "print(a + b)",
+    points: 60,
+    timeLimitSec: null,
+    payload: {
+      starterCode: "a = 5\nb = 3\n# shu yerga yozing\n",
+      tests: [
+        { stdin: "", expectedStdout: "8", visible: true },
+        { stdin: "", expectedStdout: "8", visible: false },
+      ],
+      forbiddenKeywords: ["import os", "open("],
+      timeoutMs: 5000,
+    },
+  },
+  {
+    type: "crossword",
+    title: "Takrorlanuvchi sikl kalit so'zi (ro'yxat bo'ylab)",
+    hint: null,
+    points: 100,
+    timeLimitSec: null,
+    payload: { answer: "for", caseSensitive: false, revealHint: 0, maxAttempts: null },
+  },
+  {
+    type: "short",
+    title: "Shart operatori qaysi kalit so'z bilan boshlanadi?",
+    hint: null,
+    points: 100,
+    timeLimitSec: null,
+    payload: { accepted: ["if"], matchMode: "exact", threshold: 1 },
+  },
+  {
+    type: "python",
+    title: "Kiritilgan ismni \"Salom, <ism>!\" ko'rinishida chiqaring",
+    hint: "input() va f-string",
+    points: 60,
+    timeLimitSec: null,
+    payload: {
+      starterCode: "ism = input()\n",
+      tests: [
+        { stdin: "Aziz", expectedStdout: "Salom, Aziz!", visible: true },
+        { stdin: "Malika", expectedStdout: "Salom, Malika!", visible: false },
+      ],
+      forbiddenKeywords: ["import os", "open("],
+      timeoutMs: 5000,
+    },
+  },
+];

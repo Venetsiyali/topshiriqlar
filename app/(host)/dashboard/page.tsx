@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Card } from "@/components/ui/Card";
 import { createClient } from "@/lib/supabase/server";
@@ -10,9 +11,16 @@ export default async function DashboardPage() {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const { data: profile } = await supabase.from("profiles").select("full_name").eq("id", user.id).single();
+  const [{ data: profile }, { count: groupCount }, { count: quizCount }] = await Promise.all([
+    supabase.from("profiles").select("full_name").eq("id", user.id).single(),
+    supabase.from("groups").select("*", { count: "exact", head: true }),
+    supabase.from("quizzes").select("*", { count: "exact", head: true }),
+  ]);
 
-  const sections = [uz.dashboard.groups, uz.dashboard.quizzes, uz.dashboard.sessions];
+  const sections = [
+    { href: "/groups", title: uz.dashboard.groups, count: groupCount ?? 0 },
+    { href: "/quizzes", title: uz.dashboard.quizzes, count: quizCount ?? 0 },
+  ];
 
   return (
     <div className="flex flex-col gap-8">
@@ -21,12 +29,18 @@ export default async function DashboardPage() {
         <p className="mt-1 text-muted">{uz.dashboard.greeting(profile?.full_name ?? user.email ?? "")}</p>
       </div>
       <div className="grid gap-4 md:grid-cols-3">
-        {sections.map((title) => (
-          <Card key={title}>
-            <h2 className="text-xl font-semibold">{title}</h2>
-            <p className="mt-2 text-sm text-muted">{uz.dashboard.comingSoon}</p>
-          </Card>
+        {sections.map((s) => (
+          <Link key={s.href} href={s.href} className="block">
+            <Card className="h-full transition-colors hover:border-primary">
+              <h2 className="text-xl font-semibold">{s.title}</h2>
+              <p className="mt-2 text-4xl font-bold text-primary">{uz.dashboard.count(s.count)}</p>
+            </Card>
+          </Link>
         ))}
+        <Card className="opacity-60">
+          <h2 className="text-xl font-semibold">{uz.dashboard.sessions}</h2>
+          <p className="mt-2 text-sm text-muted">{uz.dashboard.comingSoon}</p>
+        </Card>
       </div>
     </div>
   );

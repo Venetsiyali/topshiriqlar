@@ -7,7 +7,7 @@ Dars davomida talabalar real vaqtda musobaqalashadigan, o'qituvchi katta ekranda
 ## Holat
 
 - [x] 1-bosqich — poydevor: loyiha skeleti, Supabase sxemasi + RLS, o'qituvchi autentifikatsiyasi
-- [ ] 2-bosqich — guruh / quiz / topshiriq CRUD
+- [x] 2-bosqich — guruh / quiz / topshiriq CRUD
 - [ ] 3-bosqich — sessiya, PIN, QR, lobby
 - [ ] 4-bosqich — realtime
 - [ ] 5-bosqich — topshiriq turlari (crossword, choice, short, python, order)

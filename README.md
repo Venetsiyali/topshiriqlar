@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PyRace — jonli dars platformasi
 
-## Getting Started
+Dars davomida talabalar real vaqtda musobaqalashadigan, o'qituvchi katta ekranda poygani kuzatadigan veb-platforma.
 
-First, run the development server:
+**Stack:** Next.js 15 (App Router) · TypeScript · Tailwind · Supabase (Postgres, Auth, Realtime) · Pyodide · Vercel
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Holat
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [x] 1-bosqich — poydevor: loyiha skeleti, Supabase sxemasi + RLS, o'qituvchi autentifikatsiyasi
+- [ ] 2-bosqich — guruh / quiz / topshiriq CRUD
+- [ ] 3-bosqich — sessiya, PIN, QR, lobby
+- [ ] 4-bosqich — realtime
+- [ ] 5-bosqich — topshiriq turlari (crossword, choice, short, python, order)
+- [ ] 6-bosqich — katta ekran (poyga treki, podium)
+- [ ] 7-bosqich — natijalar, CSV, sayqal
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Ishga tushirish
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. [supabase.com](https://supabase.com) da loyiha yarating.
+2. SQL Editor'da `supabase/migrations/0001_init.sql` faylini ishga tushiring.
+3. `.env.example` dan `.env.local` yarating va kalitlarni kiriting (Supabase → Project Settings → API).
+4. ```bash
+   npm install
+   npm run dev
+   ```
 
-## Learn More
+## Deploy (Vercel)
 
-To learn more about Next.js, take a look at the following resources:
+Vercel'da GitHub repo'ni import qiling va quyidagi muhit o'zgaruvchilarini kiriting:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| O'zgaruvchi | Qayerdan |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase → Project Settings → API |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase → Project Settings → API |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Project Settings → API (maxfiy!) |
+| `NEXT_PUBLIC_APP_URL` | Vercel bergan domen, masalan `https://pyrace.vercel.app` |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Supabase → Authentication → URL Configuration'da **Site URL** va **Redirect URLs** ga Vercel domenini (`https://<domen>/auth/callback`) qo'shing.
 
-## Deploy on Vercel
+## Xavfsizlik
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Topshiriqning to'g'ri javobi hech qachon klientga yuborilmaydi — `tasks` jadvalini faqat quiz egasi o'qiy oladi, tekshirish server tomonda.
+- `players.device_token` da token xeshi saqlanadi va ustun klient rollaridan yashirilgan.
+- `SUPABASE_SERVICE_ROLE_KEY` faqat `lib/supabase/server.ts` → `createAdminClient()` orqali, server kodida ishlatiladi.
